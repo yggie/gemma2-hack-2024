@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 import { useWebLLMEngine } from "../webllm/WebLLMProvider";
 import { cleanLLMJson } from "../webllm/utils";
+import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
+import { Document } from "@langchain/core/documents";
+import { get_encoding } from "tiktoken";
 
 export interface LoadingPhaseProgress {
   name: string;
@@ -117,17 +120,34 @@ export function usePoMAIA() {
   };
 
   const generateHighlights = async (text: string) => {
-    const res = await fetch("/api/text-chunking", {
-      method: "POST",
-      body: text,
+    // Unfortunately hits the serverless limit, so cannot use this on free hosting
+    // const res = await fetch("/api/text-chunking", {
+    //   method: "POST",
+    //   body: text,
+    // });
+    // const { data: chunks } = (await res.json()) as {
+    //   data: {
+    //     text: string;
+    //     token_length: number;
+    //   }[];
+    // };
+
+    const splitter = new RecursiveCharacterTextSplitter({
+      chunkSize: 10,
+      chunkOverlap: 1,
     });
 
-    const { data: chunks } = (await res.json()) as {
-      data: {
-        text: string;
-        token_length: number;
-      }[];
-    };
+    const output = await splitter.splitDocuments([
+      new Document({ pageContent: text }),
+    ]);
+
+    const enc = get_encoding("gpt2");
+
+    const chunks = output.map((doc) => ({
+      text: doc.pageContent,
+      // estimate token length
+      token_length: enc.encode(doc.pageContent).length,
+    }));
 
     const giantChunks = chunks.slice(1).reduce((acc, chunk) => {
       const lastChunk = acc.at(-1)!;
