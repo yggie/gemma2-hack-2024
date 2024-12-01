@@ -1,6 +1,4 @@
-import { NextRequest } from "next/server";
-
-export async function POST(req: NextRequest) {
+export async function POST() {
   // const textToChunk = await req.text();
 
   // const chunks = await chunkit(
