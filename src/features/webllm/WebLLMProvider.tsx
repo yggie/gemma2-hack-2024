@@ -114,7 +114,7 @@ export const WebLLMProvider = ({ children }: WebLLMChatProviderProps) => {
 
   if (isLoading)
     return (
-      <div className="fixed inset-0 flex items-center justify-center">
+      <div className="flex items-center justify-center">
         <WebLLMLoadingProgress
           detail={loadingProgress}
           className="w-full max-w-md"

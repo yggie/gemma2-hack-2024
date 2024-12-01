@@ -20,10 +20,17 @@ const nextConfig: NextConfig = {
   //   return config;
   // },
 
-  // serverExternalPackages: ["sharp", "onnxruntime-node", "semantic-chunking"],
-  experimental: {
-    asyncWebAssembly: true,
+  webpack: function (config) {
+    config.experiments = {
+      asyncWebAssembly: true,
+      syncWebAssembly: true,
+      layers: true,
+      topLevelAwait: true,
+    };
+    return config;
   },
+
+  // serverExternalPackages: ["sharp", "onnxruntime-node", "semantic-chunking"],
 };
 
 export default nextConfig;
