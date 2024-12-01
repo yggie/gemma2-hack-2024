@@ -34,24 +34,41 @@ export default function RootLayout({
       >
         <NotificationsProvider>
           <Suspense fallback={<>Loading...</>}>
-            <main className="h-screen w-screen p-8">
-              <div className="mx-auto max-w-xl mt-24 mb-16">
-                <h1 className="text-7xl text-center bg-gradient-to-r from-primary via-primary to-secondary bg-clip-text text-transparent">
-                  PoMAIA
-                </h1>
+            <main className="min-h-screen w-screen flex flex-col">
+              <div className="flex-1 p-8">
+                <div className="mx-auto max-w-xl mt-24 mb-16">
+                  <h1 className="text-7xl text-center bg-gradient-to-r from-primary via-primary to-secondary bg-clip-text text-transparent">
+                    PoMAIA
+                  </h1>
 
-                <p className="text-lg mt-8">
-                  <span className="text-primary font-bold">PoMAIA</span> is your
-                  premiere content marketing assistant. Simply share your
-                  content with{" "}
-                  <span className="text-primary font-bold">PoMAIA</span> and let
-                  it work it&apos; magic. Focus on the things that matter, leave
-                  the drudgery to{" "}
-                  <span className="text-primary font-bold">PoMAIA</span>
-                </p>
+                  <p className="text-lg mt-8">
+                    <span className="text-primary font-bold">PoMAIA</span> is
+                    your premiere content marketing assistant. Simply share your
+                    content with{" "}
+                    <span className="text-primary font-bold">PoMAIA</span> and
+                    let it work it&apos; magic. Focus on the things that matter,
+                    leave the drudgery to{" "}
+                    <span className="text-primary font-bold">PoMAIA</span>
+                  </p>
+                </div>
+
+                <WebLLMProvider>{children}</WebLLMProvider>
               </div>
 
-              <WebLLMProvider>{children}</WebLLMProvider>
+              <footer className="bg-slate-600 py-8 px-4 flex flex-row justify-end text-white">
+                <p>
+                  Made by the{" "}
+                  <a
+                    className="link"
+                    href="https://amata.world"
+                    target="_blank"
+                    rel="nofollow noreferrer"
+                  >
+                    amata world
+                  </a>{" "}
+                  team
+                </p>
+              </footer>
             </main>
           </Suspense>
         </NotificationsProvider>

@@ -57,27 +57,31 @@ export default function Home() {
         </div>
       </form>
 
-      <div className="divider" />
+      {pomaia.sourceText ? (
+        <>
+          <div className="divider" />
 
-      <SummarySection
-        summary={pomaia.results.summary}
-        className="mx-auto max-w-3xl"
-        isProcessing={pomaia.isProcessing}
-        onClickGenerateSummary={() => {
-          pomaia.regenerateSummary();
-        }}
-      />
+          <SummarySection
+            summary={pomaia.results.summary}
+            className="mx-auto max-w-3xl"
+            isProcessing={pomaia.isProcessing}
+            onClickGenerateSummary={() => {
+              pomaia.regenerateSummary();
+            }}
+          />
 
-      <div className="divider" />
+          <div className="divider" />
 
-      <HighlightsSection
-        quotes={pomaia.results.quotes}
-        className="mx-auto max-w-3xl"
-        isProcessing={pomaia.isProcessing}
-        onClickGenerateHighlights={() => {
-          pomaia.regenerateHighlights();
-        }}
-      />
+          <HighlightsSection
+            quotes={pomaia.results.quotes}
+            className="mx-auto max-w-3xl"
+            isProcessing={pomaia.isProcessing}
+            onClickGenerateHighlights={() => {
+              pomaia.regenerateHighlights();
+            }}
+          />
+        </>
+      ) : null}
     </>
   );
 }
